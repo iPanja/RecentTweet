@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or('!'), description='
 twitter = Twitter(auth = OAuth(
     config.twitter['access_key'],
     config.twitter['access_secret'],
-    config.twitter['consumer_key'],
+    config.twitter['consumer_token'],
     config.twitter['consumer_secret']
 ))
 
@@ -27,16 +27,15 @@ async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
 @bot.event
 async def on_command_error(error, ctx):
-    if isinstance(error, commands.CommandOnCooldown):
-        await bot.send_message(ctx.message.channel, content='This command is on a %.2fs cooldown' % error.retry_after);
-        return;
     if isinstance(error, commands.CommandNotFound):
         return
+    if isinstance(error, commands.MissingRequiredArgument):
+        await bot.send_message(ctx.message.channel, "You are missing a parameter.")
     raise error;
 
 @bot.command(pass_context = True)
 async def tweet(ctx):
-    await bot.send_message(ctx.message.channel, uHandle + " : " + latest_tweet(uHandle))
+    await bot.send_message(ctx.message.channel, uHandle + ": " + latest_tweet(uHandle))
 @bot.command(pass_context = True)
 async def handle(ctx, userhandle:str):
     global uHandle
