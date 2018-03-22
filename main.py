@@ -9,7 +9,7 @@ bot = discord.Client()
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('!'), description='Gets the most recent tweet from a designated user.')
 #Twitter API
 twitter = Twitter(auth = OAuth(
-    config.twitter['access_key'],
+    config.twitter['access_token'],
     config.twitter['access_secret'],
     config.twitter['consumer_token'],
     config.twitter['consumer_secret']
