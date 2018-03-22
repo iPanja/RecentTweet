@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or('!'), description='
 twitter = Twitter(auth = OAuth(
     config.twitter['access_token'],
     config.twitter['access_secret'],
-    config.twitter['consumer_token'],
+    config.twitter['consumer_key'],
     config.twitter['consumer_secret']
 ))
 
